@@ -1,0 +1,84 @@
+[
+    {
+        "name": "Kuchnia polska",
+        "index_nr": 0,
+        "mealsList": [
+            {
+                "name": "Bigos"
+            },
+            {
+                "name": "Zupa pomidorowa"
+            },
+            {
+                "name": "Indyk"
+            },
+            {
+                "name": "Schabowy z ziemniakami"
+            }
+
+        ]
+    },
+    {
+        "name": "Kuchnia śląska",
+        "index_nr": 1,
+        "mealsList": [
+            {
+                "name": "Rolady z boczku"
+            },
+            {
+                "name": "Wodzionka"
+            }
+
+        ]
+    },
+    {
+        "name": "Kuchnia amerykańska",
+        "index_nr": 2,
+        "mealsList": [
+            {
+                "name": "Buger"
+            },
+            {
+                "name": "Hot dog"
+            }
+
+        ]
+    },
+    {
+        "name": "Kuchnia włoska",
+        "index_nr": 3,
+        "mealsList": [
+            {
+                "name": "Pizza margherita"
+            },
+            {
+                "name": "Włoska zapiekanka z bakłażana"
+            }
+
+        ]
+    },
+    {
+        "name": "Kuchnia wegańska",
+        "index_nr": 4,
+        "mealsList": [
+            {
+                "name": "Wegański gulasz"
+            },
+            {
+                "name": "Wegański burger"
+            }
+
+        ]
+    },
+    {
+        "name": "Ciasta",
+        "index_nr": 5,
+        "mealsList": [
+            {
+                "name": "Sernik"
+            }
+
+        ]
+    }
+    
+]
