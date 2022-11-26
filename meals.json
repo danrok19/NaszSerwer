@@ -83,7 +83,6 @@
         "index_nr": 4,
         "rating": 4,
         "ingredientsList": [
-
             "schab bez kości",
             "Przyprawa do mięs Knorr",
             "jajka",
@@ -101,10 +100,10 @@
         "index_nr": 5,
         "rating": 4,
         "ingredientsList": [
-                "parówki",
-                "bułki do hot-dogów",
-                "Ketchup Hellmann's Oryginalny",
-                "ogórek konserwowy"
+            "parówki",
+            "bułki do hot-dogów",
+            "Ketchup Hellmann's Oryginalny",
+            "ogórek konserwowy"
         ],
         "discription": "1. Ustaw naczynie do gotowania na parze. Połóż bułeczki do hot dogów na sitku i zagrzej na parze aby były miękkie i ciepłe.\n2. Parówki wrzuć na kilka minut do wrzątku. Ogórka pokrój w plasterki.\n3. W bułeczce umieść plasterki ogórka oraz parówkę.\n4. Całość polej majonezem i podawaj od razu po przygotowaniu.",
         "categoryId": 2
@@ -243,6 +242,7 @@
     {
         "name": "Pierogi z grzybami",
         "timePrep": "65",
+        "index_nr": 13,
         "rating": 5,
         "ingredientsList": [
             "mąka pszenna",
