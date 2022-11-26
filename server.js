@@ -125,7 +125,7 @@ app.put('/meals/:index_nr', (req, res) => {
     });
 });
 
-app.delete('/meals/:id', (req, res) => {
+app.delete('/meals/:index_nr', (req, res) => {
     fs.readFile('./meals.json', 'utf8', (err, mealsJson) => {
         if (err) {
             console.log("File read failed in DELETE /meals: "+ err);
@@ -133,22 +133,22 @@ app.delete('/meals/:id', (req, res) => {
             return;
         }
         var meals = JSON.parse(mealsJson);
-        var mealIndex = meals.findIndex(mealtmp => mealtmp.mealId == req.params.id);
-        if (orderIndex != -1) {
-            orders.splice(orderIndex, 1);
-            var newList = JSON.stringify(orders);
-            fs.writeFile('./orders.json', newList, err => {
+        var mealIndex = meals.findIndex(mealtmp => mealtmp.index_nr == req.params.index_nr);
+        if (mealIndex != -1) {
+            meals.splice(mealIndex, 1);
+            var newList = JSON.stringify(meals);
+            fs.writeFile('./meals.json', newList, err => {
                 if (err) {
-                    console.log("Error writing file in DELETE /orders/" + req.params.id+": "+ err);
-                    res.status(500).send('Error writing file orders.json');
+                    console.log("Error writing file in DELETE /meals/" + req.params.index_nr+": "+ err);
+                    res.status(500).send('Error writing file meals.json');
                 } else {
                     res.status(204).send();
-                    console.log("Successfully deleted order with id = " + req.params.id);
+                    console.log("Successfully deleted meal with index_nr = " + req.params.index_nr);
                 }
             });
         } else {
-            console.log("Order by id = " + req.params.id + " does not exists");
-            res.status(500).send('Order by id = ' + req.params.id + ' does not exists');
+            console.log("Order by index_nr = " + req.params.index_nr + " does not exists");
+            res.status(500).send('Order by index_nr = ' + req.params.index_nr + ' does not exists');
             return;
         }
     });
@@ -209,6 +209,35 @@ app.post('/categories', (req, res) => {
         } else {
             console.log("Category by id = " + req.body.index_nr + " already exists");
             res.status(500).send('Category by id = ' + req.body.index_nr + ' already exists');
+            return;
+        }
+    });
+});
+
+app.delete('/categories/:index_nr', (req, res) => {
+    fs.readFile('./categories.json', 'utf8', (err, categoriesJson) => {
+        if (err) {
+            console.log("File read failed in DELETE /categories: "+ err);
+            res.status(500).send('File read failed');
+            return;
+        }
+        var categories = JSON.parse(categoriesJson);
+        var categoryIndex = categories.findIndex(categorytmp => categorytmp.index_nr == req.params.index_nr);
+        if (categoryIndex != -1) {
+            categories.splice(categoryIndex, 1);
+            var newList = JSON.stringify(categories);
+            fs.writeFile('./categories.json', newList, err => {
+                if (err) {
+                    console.log("Error writing file in DELETE /categories/" + req.params.index_nr+": "+ err);
+                    res.status(500).send('Error writing file categories.json');
+                } else {
+                    res.status(204).send();
+                    console.log("Successfully deleted category with index_nr = " + req.params.index_nr);
+                }
+            });
+        } else {
+            console.log("Order by index_nr = " + req.params.index_nr + " does not exists");
+            res.status(500).send('Order by index_nr = ' + req.params.index_nr + ' does not exists');
             return;
         }
     });
