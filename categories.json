@@ -1,51 +1,26 @@
 [
     {
         "name": "Kuchnia polska",
-        "index_nr": 0,
-        "mealsList": [
-            "Bigos",
-            "Zupa pomidorowa",
-            "Indyk",
-            "Schabowy z ziemniakami"
-        ]
+        "index_nr": 0
     },
     {
         "name": "Kuchnia śląska",
-        "index_nr": 1,
-        "mealsList": [
-            "Rolady z boczku",
-            "Wodzionka"
-        ]
+        "index_nr": 1
     },
     {
         "name": "Kuchnia amerykańska",
-        "index_nr": 2,
-        "mealsList": [
-            "Buger",
-            "Hot dog"
-        ]
+        "index_nr": 2
     },
     {
         "name": "Kuchnia włoska",
-        "index_nr": 3,
-        "mealsList": [
-            "Pizza margherita",
-            "Włoska zapiekanka z bakłażana"
-        ]
+        "index_nr": 3
     },
     {
         "name": "Kuchnia wegańska",
-        "index_nr": 4,
-        "mealsList": [
-            "Wegański gulasz",
-            "Wegański burger"
-        ]
+        "index_nr": 4
     },
     {
         "name": "Ciasta",
-        "index_nr": 5,
-        "mealsList": [
-            "Sernik"
-        ]
+        "index_nr": 5
     }
 ]
