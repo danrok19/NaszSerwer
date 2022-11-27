@@ -156,22 +156,6 @@ app.delete('/meals/:index_nr', (req, res) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //DO CATEGORIES------------------------------------------------------------------------
 app.get('/categories', (req, res) => {
     fs.readFile('./categories.json', 'utf8', (err, categoriesJson) => {
