@@ -102,7 +102,7 @@ app.put('/meals/:index_nr', (req, res) => {
                     res.status(500).send('Error writing file meals.json');
                 } else {
                     res.status(201).send(req.body);
-                    console.log("Successfully wrote file meals.json and added new meal with index_nr = " + req.body.index_nr);
+                    console.log("Successfully wrote file meals.json and added new order with id = " + req.body.index_nr);
                 }
             });
         } else {
@@ -115,7 +115,7 @@ app.put('/meals/:index_nr', (req, res) => {
             fs.writeFile('./meals.json', newList, err => {
                 if (err) {
                     console.log("Error writing file in PUT /meals/" + req.params.index_nr+": "+ err);
-                    res.status(500).send('Error writing file orders.json');
+                    res.status(500).send('Error writing file meals.json');
                 } else {
                     res.status(200).send(req.body);
                     console.log("Successfully wrote file meals.json and edit order with old index_nr = " + req.params.index_nr);
