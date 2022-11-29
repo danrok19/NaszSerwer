@@ -1,5 +1,35 @@
 [
     {
+        "name": "pierwszy",
+        "timePrep": 120,
+        "index_nr": 1000,
+        "rating": 5,
+        "ingredientsList": [
+            "mięso wieprzowe z łopatki",
+            "mięso wołowe",
+            "wędzony boczek",
+            "kapusta kiszona",
+            "główka kapusty słodkiej",
+            "koncentrat pomidorowy",
+            "grzyby suszone",
+            "suszone śliwki",
+            "majeranek",
+            "pieprz ziarnisty",
+            "ziele angielskie",
+            "kminek",
+            "liść laurowy"
+        ],
+        "description": "1. Kiszoną kapustę przepłucz zimną wodą, słodką kapustę poszatkuj.\n2. Mięso pokrój w kostkę.\nWszystkie składniki układaj w dużym garnku, przesypując na przemian mięsem i kapustą. Bigos gotuj około 5 godzin. Bigos jest tym lepszy im dłużej go gotujemy i studzimy na przemian.",
+        "categoryId": 1000,
+        "tagsList": [
+            "kolacja",
+            "śniadanie",
+            "obiad",
+            "deser",
+            "święta"
+        ]
+    },
+    {
         "name": "Bigos",
         "timePrep": 120,
         "index_nr": 0,
