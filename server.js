@@ -14,141 +14,121 @@ app.use(bodyParser.urlencoded({
 app.listen(7777, () => console.log("Server address http://localhost:7777"));
 
 
-//DO MEALSÓW------------------------------------------------------------------------
+//DO reactÓW------------------------------------------------------------------------
 //GET
-app.get('/meals', (req, res) => {
-    fs.readFile('./meals.json', 'utf8', (err, mealsJson) => {
+app.get('/react', (req, res) => {
+    fs.readFile('./react.json', 'utf8', (err, reactJson) => {
         if (err) {
-            console.log("File read failed in GET /meals: "+ err);
+            console.log("File read failed in GET /react: "+ err);
             res.status(500).send('File read failed');
             return;
         }
-        console.log("GET: /meals");
-        res.send(mealsJson);
+        console.log("GET: /react");
+        res.send(reactJson);
     });
 });
-
-// app.get('/meals/:index_nr', (req, res) => {
-//     fs.readFile('./meals.json', 'utf8', (err, mealsJson) => {
-//         if (err) {
-//             console.log("File read failed in GET /meals/" + req.params.index_nr + ": "+ err);
-//             res.status(500).send('File read failed');
-//             return;
-//         }
-//         var meals = JSON.parse(mealsJson);
-//         var meal = meals.find(mealtmp => mealtmp.index_nr == req.params.index_nr);
-//         if (!meal) {
-//             console.log("Can't find meal with id: " + req.params.index_nr);
-//             res.status(500).send('Cant find meal with id: ' + req.params.index_nr);
-//             return;
-//         }
-//         var mealJSON = JSON.stringify(meal);
-//         console.log("GET /meals/" + req.params.index_nr);
-//         res.send(mealJSON);
-//     });
-// });
 //POST
-app.post('/meals', (req, res) => {
-    fs.readFile('./meals.json', 'utf8', (err, mealsJson) => {
+app.post('/react', (req, res) => {
+    fs.readFile('./react.json', 'utf8', (err, reactJson) => {
         if (err) {
             console.log("File read failed in POST /orders: "+ err);
             res.status(500).send('File read failed');
             return;
         }
-        var meals = JSON.parse(mealsJson);
-        var meal = meals.find(mealtmp => mealtmp.index_nr == req.body.index_nr);
-        if (!meal) {
-            meals.push(req.body);
-            var newList = JSON.stringify(meals);
-            fs.writeFile('./meals.json', newList, err => {
+        var react = JSON.parse(reactJson);
+        var react = react.find(reacttmp => reacttmp.Id == req.body.Id);
+        if (!react) {
+            react.push(req.body);
+            var newList = JSON.stringify(react);
+            fs.writeFile('./react.json', newList, err => {
                 if (err) {
-                    console.log("Error writing file in POST /meals: "+ err);
-                    res.status(500).send('Error writing file meals.json');
+                    console.log("Error writing file in POST /react: "+ err);
+                    res.status(500).send('Error writing file react.json');
                 } else {
                     res.status(201).send(req.body);
-                    console.log("Successfully wrote file meals.json and added new meal with index_nr = " + req.body.index_nr);
+                    console.log("Successfully wrote file react.json and added new react with Id = " + req.body.Id);
                 }
             });
         } else {
-            console.log("Meal by index_nr = " + req.body.index_nr + " already exists");
-            res.status(500).send('Meal by index_nr = ' + req.body.index_nr + ' already exists');
+            console.log("react by Id = " + req.body.Id + " already exists");
+            res.status(500).send('react by Id = ' + req.body.Id + ' already exists');
             return;
         }
     });
 });
 
 
-app.put('/meals/:index_nr', (req, res) => {
-    fs.readFile('./meals.json', 'utf8', (err, mealsJson) => {
+app.put('/react/:Id', (req, res) => {
+    fs.readFile('./react.json', 'utf8', (err, reactJson) => {
         if (err) {
-            console.log("File read failed in PUT /meals/" + req.params.index_nr+": "+ err);
+            console.log("File read failed in PUT /react/" + req.params.Id+": "+ err);
             res.status(500).send('File read failed');
             return;
         }
-        var meals = JSON.parse(mealsJson);
-        var mealBody = meals.find(mealtmp => mealtmp.index_nr == req.body.index_nr);
-        if (mealBody && mealBody.index_nr != req.params.index_nr) {
-            console.log("Meal by index_nr = " + mealBody.index_nr + " already exists");
-            res.status(500).send('Meal by index_nr = ' + mealBody.index_nr + ' already exists');
+        var react = JSON.parse(reactJson);
+        var reactBody = react.find(reacttmp => reacttmp.Id == req.body.Id);
+        if (reactBody && reactBody.Id != req.params.Id) {
+            console.log("react by Id = " + reactBody.Id + " already exists");
+            res.status(500).send('react by Id = ' + reactBody.Id + ' already exists');
             return;
         }
-        var meal = meals.find(mealtmp => mealtmp.index_nr == req.params.index_nr);
-        if (!meal) {
-            meals.push(req.body);
-            var newList = JSON.stringify(meals);
-            fs.writeFile('./meals.json', newList, err => {
+        var react = react.find(reacttmp => reacttmp.Id == req.params.Id);
+        if (!react) {
+            react.push(req.body);
+            var newList = JSON.stringify(react);
+            fs.writeFile('./react.json', newList, err => {
                 if (err) {
-                    console.log("Error writing file in PUT /meals/" + req.params.index_nr+": "+err);
-                    res.status(500).send('Error writing file meals.json');
+                    console.log("Error writing file in PUT /react/" + req.params.Id+": "+err);
+                    res.status(500).send('Error writing file react.json');
                 } else {
                     res.status(201).send(req.body);
-                    console.log("Successfully wrote file meals.json and added new order with id = " + req.body.index_nr);
+                    console.log("Successfully wrote file react.json and added new order with id = " + req.body.Id);
                 }
             });
         } else {
-            for (var i = 0; i < meals.length; i++) {
-                if (meals[i].index_nr == meal.index_nr) {
-                    meals[i] = req.body;
+            for (var i = 0; i < react.length; i++) {
+                if (react[i].Id == react.Id) {
+                    react[i] = req.body;
                 }
             }
-            var newList = JSON.stringify(meals);
-            fs.writeFile('./meals.json', newList, err => {
+            var newList = JSON.stringify(react);
+            fs.writeFile('./react.json', newList, err => {
                 if (err) {
-                    console.log("Error writing file in PUT /meals/" + req.params.index_nr+": "+ err);
-                    res.status(500).send('Error writing file meals.json');
+                    console.log("Error writing file in PUT /react/" + req.params.Id+": "+ err);
+                    res.status(500).send('Error writing file react.json');
                 } else {
                     res.status(200).send(req.body);
-                    console.log("Successfully wrote file meals.json and edit order with old index_nr = " + req.params.index_nr);
+                    console.log("Successfully wrote file react.json and edit order with old Id = " + req.params.Id);
                 }
             });
         }
     });
 });
 
-app.delete('/meals/:index_nr', (req, res) => {
-    fs.readFile('./meals.json', 'utf8', (err, mealsJson) => {
+app.delete('/react/:Id', (req, res) => {
+    fs.readFile('./react.json', 'utf8', (err, reactJson) => {
         if (err) {
-            console.log("File read failed in DELETE /meals: "+ err);
+            console.log("File read failed in DELETE /react: "+ err);
             res.status(500).send('File read failed');
             return;
         }
-        var meals = JSON.parse(mealsJson);
-        var mealIndex = meals.findIndex(mealtmp => mealtmp.index_nr == req.params.index_nr);
-        if (mealIndex != -1) {
-            meals.splice(mealIndex, 1);
-            var newList = JSON.stringify(meals);
-            fs.writeFile('./meals.json', newList, err => {
+        var react = JSON.parse(reactJson);
+        var reactIndex = react.findIndex(reacttmp => reacttmp.Id == req.params.Id);
+        if (reactIndex != -1) {
+            react.splice(reactIndex, 1);
+            var newList = JSON.stringify(react);
+            fs.writeFile('./react.json', newList, err => {
                 if (err) {
-                    console.log("Error writing file in DELETE /meals/" + req.params.index_nr+": "+ err);
-                    res.status(500).send('Error writing file meals.json');
+                    console.log("Error writing file in DELETE /react/" + req.params.Id+": "+ err);
+                    res.status(500).send('Error writing file react.json');
                 } else {
                     res.status(204).send();
-                    console.log("Successfully deleted meal with index_nr = " + req.params.index_nr);
+                    console.log("Successfully deleted react with Id = " + req.params.Id);
                 }
             });
         } else {
-            console.log("Order by index_nr = " + req.params.index_nr + " does not exists");
-            res.status(500).send('Order by index_nr = ' + req.params.index_nr + ' does not exists');
+            console.log("Order by Id = " + req.params.Id + " does not exists");
+            res.status(500).send('Order by Id = ' + req.params.Id + ' does not exists');
             return;
         }
     });
@@ -156,118 +136,118 @@ app.delete('/meals/:index_nr', (req, res) => {
 
 
 
-//DO CATEGORIES------------------------------------------------------------------------
-app.get('/categories', (req, res) => {
-    fs.readFile('./categories.json', 'utf8', (err, categoriesJson) => {
+//DO angular------------------------------------------------------------------------
+app.get('/angular', (req, res) => {
+    fs.readFile('./angular.json', 'utf8', (err, angularJson) => {
         if (err) {
-            console.log("File read failed in GET /categories: "+ err);
+            console.log("File read failed in GET /angular: "+ err);
             res.status(500).send('File read failed');
             return;
         }
-        console.log("GET: /categories");
-        res.send(categoriesJson);
+        console.log("GET: /angular");
+        res.send(angularJson);
     });
 });
 
-app.post('/categories', (req, res) => {
-    fs.readFile('./categories.json', 'utf8', (err, categoriesJson) => {
+app.post('/angular', (req, res) => {
+    fs.readFile('./angular.json', 'utf8', (err, angularJson) => {
         if (err) {
             console.log("File read failed in POST /orders: "+ err);
             res.status(500).send('File read failed');
             return;
         }
-        var categories = JSON.parse(categoriesJson);
-        var category = categories.find(categorytmp => categorytmp.index_nr == req.body.index_nr);
-        if (!category) {
-            categories.push(req.body);
-            var newList = JSON.stringify(categories);
-            fs.writeFile('./categories.json', newList, err => {
+        var angular = JSON.parse(angularJson);
+        var angular = angular.find(angulartmp => angulartmp.Id == req.body.Id);
+        if (!angular) {
+            angular.push(req.body);
+            var newList = JSON.stringify(angular);
+            fs.writeFile('./angular.json', newList, err => {
                 if (err) {
-                    console.log("Error writing file in POST /categories: "+ err);
-                    res.status(500).send('Error writing file categories.json');
+                    console.log("Error writing file in POST /angular: "+ err);
+                    res.status(500).send('Error writing file angular.json');
                 } else {
                     res.status(201).send(req.body);
-                    console.log("Successfully wrote file categories.json and added new meal with id = " + req.body.index_nr);
+                    console.log("Successfully wrote file angular.json and added new react with id = " + req.body.Id);
                 }
             });
         } else {
-            console.log("Category by id = " + req.body.index_nr + " already exists");
-            res.status(500).send('Category by id = ' + req.body.index_nr + ' already exists');
+            console.log("angular by id = " + req.body.Id + " already exists");
+            res.status(500).send('angular by id = ' + req.body.Id + ' already exists');
             return;
         }
     });
 });
 
-app.delete('/categories/:index_nr', (req, res) => {
-    fs.readFile('./categories.json', 'utf8', (err, categoriesJson) => {
+app.delete('/angular/:Id', (req, res) => {
+    fs.readFile('./angular.json', 'utf8', (err, angularJson) => {
         if (err) {
-            console.log("File read failed in DELETE /categories: "+ err);
+            console.log("File read failed in DELETE /angular: "+ err);
             res.status(500).send('File read failed');
             return;
         }
-        var categories = JSON.parse(categoriesJson);
-        var categoryIndex = categories.findIndex(categorytmp => categorytmp.index_nr == req.params.index_nr);
-        if (categoryIndex != -1) {
-            categories.splice(categoryIndex, 1);
-            var newList = JSON.stringify(categories);
-            fs.writeFile('./categories.json', newList, err => {
+        var angular = JSON.parse(angularJson);
+        var angularIndex = angular.findIndex(angulartmp => angulartmp.Id == req.params.Id);
+        if (angularIndex != -1) {
+            angular.splice(angularIndex, 1);
+            var newList = JSON.stringify(angular);
+            fs.writeFile('./angular.json', newList, err => {
                 if (err) {
-                    console.log("Error writing file in DELETE /categories/" + req.params.index_nr+": "+ err);
-                    res.status(500).send('Error writing file categories.json');
+                    console.log("Error writing file in DELETE /angular/" + req.params.Id+": "+ err);
+                    res.status(500).send('Error writing file angular.json');
                 } else {
                     res.status(204).send();
-                    console.log("Successfully deleted category with index_nr = " + req.params.index_nr);
+                    console.log("Successfully deleted angular with Id = " + req.params.Id);
                 }
             });
         } else {
-            console.log("Order by index_nr = " + req.params.index_nr + " does not exists");
-            res.status(500).send('Order by index_nr = ' + req.params.index_nr + ' does not exists');
+            console.log("Order by Id = " + req.params.Id + " does not exists");
+            res.status(500).send('Order by Id = ' + req.params.Id + ' does not exists');
             return;
         }
     });
 });
 
-app.put('/categories/:index_nr', (req, res) => {
-    fs.readFile('./categories.json', 'utf8', (err, categoriesJson) => {
+app.put('/angular/:Id', (req, res) => {
+    fs.readFile('./angular.json', 'utf8', (err, angularJson) => {
         if (err) {
-            console.log("File read failed in PUT /categories/" + req.params.index_nr+": "+ err);
+            console.log("File read failed in PUT /angular/" + req.params.Id+": "+ err);
             res.status(500).send('File read failed');
             return;
         }
-        var categories = JSON.parse(categoriesJson);
-        var categoryBody = categories.find(categorytmp => categorytmp.index_nr == req.body.index_nr);
-        if (categoryBody && categoryBody.index_nr != req.params.index_nr) {
-            console.log("Category by index_nr = " + categoryBody.index_nr + " already exists");
-            res.status(500).send('Category by index_nr = ' + categoryBody.index_nr + ' already exists');
+        var angular = JSON.parse(angularJson);
+        var angularBody = angular.find(angulartmp => angulartmp.Id == req.body.Id);
+        if (angularBody && angularBody.Id != req.params.Id) {
+            console.log("angular by Id = " + angularBody.Id + " already exists");
+            res.status(500).send('angular by Id = ' + angularBody.Id + ' already exists');
             return;
         }
-        var category = categories.find(categorytmp => categorytmp.index_nr == req.params.index_nr);
-        if (!category) {
-            categories.push(req.body);
-            var newList = JSON.stringify(categories);
-            fs.writeFile('./categories.json', newList, err => {
+        var angular = angular.find(angulartmp => angulartmp.Id == req.params.Id);
+        if (!angular) {
+            angular.push(req.body);
+            var newList = JSON.stringify(angular);
+            fs.writeFile('./angular.json', newList, err => {
                 if (err) {
-                    console.log("Error writing file in PUT /categories/" + req.params.index_nr+": "+err);
-                    res.status(500).send('Error writing file categories.json');
+                    console.log("Error writing file in PUT /angular/" + req.params.Id+": "+err);
+                    res.status(500).send('Error writing file angular.json');
                 } else {
                     res.status(201).send(req.body);
-                    console.log("Successfully wrote file categories.json and added new category with index_nr = " + req.body.index_nr);
+                    console.log("Successfully wrote file angular.json and added new angular with Id = " + req.body.Id);
                 }
             });
         } else {
-            for (var i = 0; i < categories.length; i++) {
-                if (categories[i].index_nr == category.index_nr) {
-                    categories[i] = req.body;
+            for (var i = 0; i < angular.length; i++) {
+                if (angular[i].Id == angular.Id) {
+                    angular[i] = req.body;
                 }
             }
-            var newList = JSON.stringify(categories);
-            fs.writeFile('./categories.json', newList, err => {
+            var newList = JSON.stringify(angular);
+            fs.writeFile('./angular.json', newList, err => {
                 if (err) {
-                    console.log("Error writing file in PUT /categories/" + req.params.index_nr+": "+ err);
+                    console.log("Error writing file in PUT /angular/" + req.params.Id+": "+ err);
                     res.status(500).send('Error writing file orders.json');
                 } else {
                     res.status(200).send(req.body);
-                    console.log("Successfully wrote file categories.json and edit order with old index_nr = " + req.params.index_nr);
+                    console.log("Successfully wrote file angular.json and edit order with old Id = " + req.params.Id);
                 }
             });
         }
