@@ -14,91 +14,78 @@ app.use(bodyParser.urlencoded({
 app.listen(7777, () => console.log("Server address http://localhost:7777"));
 
 
-//DO reactÓW------------------------------------------------------------------------
+//DO REACT------------------------------------------------------------------------
 //GET
 app.get('/react', (req, res) => {
     fs.readFile('./react.json', 'utf8', (err, reactJson) => {
         if (err) {
-            console.log("File read failed in GET /react: "+ err);
-            res.status(500).send('File read failed');
+            res.status(500).send('File read React failed');
             return;
         }
-        console.log("GET: /react");
         res.send(reactJson);
     });
 });
-//POST
+
 app.post('/react', (req, res) => {
     fs.readFile('./react.json', 'utf8', (err, reactJson) => {
         if (err) {
-            console.log("File read failed in POST /orders: "+ err);
             res.status(500).send('File read failed');
             return;
         }
-        var react = JSON.parse(reactJson);
-        var react = react.find(reacttmp => reacttmp.Id == req.body.Id);
+        var reactlocal = JSON.parse(reactJson);
+        var react = reactlocal.find(reacttmp => reacttmp.Id == req.body.Id);
         if (!react) {
-            react.push(req.body);
-            var newList = JSON.stringify(react);
+            reactlocal.push(req.body);
+            var newList = JSON.stringify(reactlocal);
             fs.writeFile('./react.json', newList, err => {
                 if (err) {
-                    console.log("Error writing file in POST /react: "+ err);
                     res.status(500).send('Error writing file react.json');
                 } else {
                     res.status(201).send(req.body);
-                    console.log("Successfully wrote file react.json and added new react with Id = " + req.body.Id);
                 }
             });
         } else {
-            console.log("react by Id = " + req.body.Id + " already exists");
-            res.status(500).send('react by Id = ' + req.body.Id + ' already exists');
+            res.status(500).send('Question by Id = ' + req.body.Id + ' already exists');
             return;
         }
     });
 });
-
 
 app.put('/react/:Id', (req, res) => {
     fs.readFile('./react.json', 'utf8', (err, reactJson) => {
         if (err) {
-            console.log("File read failed in PUT /react/" + req.params.Id+": "+ err);
             res.status(500).send('File read failed');
             return;
         }
-        var react = JSON.parse(reactJson);
-        var reactBody = react.find(reacttmp => reacttmp.Id == req.body.Id);
+        var reactlocal = JSON.parse(reactJson);
+        var reactBody = reactlocal.find(reacttmp => reacttmp.Id == req.body.Id);
         if (reactBody && reactBody.Id != req.params.Id) {
-            console.log("react by Id = " + reactBody.Id + " already exists");
-            res.status(500).send('react by Id = ' + reactBody.Id + ' already exists');
+            res.status(500).send('Question by Id = ' + reactBody.Id + ' already exists');
             return;
         }
-        var react = react.find(reacttmp => reacttmp.Id == req.params.Id);
+        var react = reactlocal.find(reacttmp => reacttmp.Id == req.params.Id);
         if (!react) {
-            react.push(req.body);
-            var newList = JSON.stringify(react);
+            reactlocal.push(req.body);
+            var newList = JSON.stringify(reactlocal);
             fs.writeFile('./react.json', newList, err => {
                 if (err) {
-                    console.log("Error writing file in PUT /react/" + req.params.Id+": "+err);
                     res.status(500).send('Error writing file react.json');
                 } else {
                     res.status(201).send(req.body);
-                    console.log("Successfully wrote file react.json and added new order with id = " + req.body.Id);
                 }
             });
         } else {
-            for (var i = 0; i < react.length; i++) {
-                if (react[i].Id == react.Id) {
-                    react[i] = req.body;
+            for (var i = 0; i < reactlocal.length; i++) {
+                if (reactlocal[i].Id == react.Id) {
+                    reactlocal[i] = req.body;
                 }
             }
-            var newList = JSON.stringify(react);
+            var newList = JSON.stringify(reactlocal);
             fs.writeFile('./react.json', newList, err => {
                 if (err) {
-                    console.log("Error writing file in PUT /react/" + req.params.Id+": "+ err);
                     res.status(500).send('Error writing file react.json');
                 } else {
                     res.status(200).send(req.body);
-                    console.log("Successfully wrote file react.json and edit order with old Id = " + req.params.Id);
                 }
             });
         }
@@ -108,7 +95,6 @@ app.put('/react/:Id', (req, res) => {
 app.delete('/react/:Id', (req, res) => {
     fs.readFile('./react.json', 'utf8', (err, reactJson) => {
         if (err) {
-            console.log("File read failed in DELETE /react: "+ err);
             res.status(500).send('File read failed');
             return;
         }
@@ -119,16 +105,13 @@ app.delete('/react/:Id', (req, res) => {
             var newList = JSON.stringify(react);
             fs.writeFile('./react.json', newList, err => {
                 if (err) {
-                    console.log("Error writing file in DELETE /react/" + req.params.Id+": "+ err);
                     res.status(500).send('Error writing file react.json');
                 } else {
                     res.status(204).send();
-                    console.log("Successfully deleted react with Id = " + req.params.Id);
                 }
             });
         } else {
-            console.log("Order by Id = " + req.params.Id + " does not exists");
-            res.status(500).send('Order by Id = ' + req.params.Id + ' does not exists');
+            res.status(500).send('Question by Id = ' + req.params.Id + ' does not exists');
             return;
         }
     });
@@ -152,15 +135,15 @@ app.get('/angular', (req, res) => {
 app.post('/angular', (req, res) => {
     fs.readFile('./angular.json', 'utf8', (err, angularJson) => {
         if (err) {
-            console.log("File read failed in POST /orders: "+ err);
+            console.log("File read failed in POST: "+ err);
             res.status(500).send('File read failed');
             return;
         }
-        var angular = JSON.parse(angularJson);
-        var angular = angular.find(angulartmp => angulartmp.Id == req.body.Id);
+        var angularlocal = JSON.parse(angularJson);
+        var angular = angularlocal.find(angulartmp => angulartmp.Id == req.body.Id);
         if (!angular) {
-            angular.push(req.body);
-            var newList = JSON.stringify(angular);
+            angularlocal.push(req.body);
+            var newList = JSON.stringify(angularlocal);
             fs.writeFile('./angular.json', newList, err => {
                 if (err) {
                     console.log("Error writing file in POST /angular: "+ err);
@@ -214,17 +197,17 @@ app.put('/angular/:Id', (req, res) => {
             res.status(500).send('File read failed');
             return;
         }
-        var angular = JSON.parse(angularJson);
-        var angularBody = angular.find(angulartmp => angulartmp.Id == req.body.Id);
+        var angularlocal = JSON.parse(angularJson);
+        var angularBody = angularlocal.find(angulartmp => angulartmp.Id == req.body.Id);
         if (angularBody && angularBody.Id != req.params.Id) {
             console.log("angular by Id = " + angularBody.Id + " already exists");
             res.status(500).send('angular by Id = ' + angularBody.Id + ' already exists');
             return;
         }
-        var angular = angular.find(angulartmp => angulartmp.Id == req.params.Id);
+        var angular = angularlocal.find(angulartmp => angulartmp.Id == req.params.Id);
         if (!angular) {
-            angular.push(req.body);
-            var newList = JSON.stringify(angular);
+            angularlocal.push(req.body);
+            var newList = JSON.stringify(angularlocal);
             fs.writeFile('./angular.json', newList, err => {
                 if (err) {
                     console.log("Error writing file in PUT /angular/" + req.params.Id+": "+err);
@@ -235,12 +218,12 @@ app.put('/angular/:Id', (req, res) => {
                 }
             });
         } else {
-            for (var i = 0; i < angular.length; i++) {
-                if (angular[i].Id == angular.Id) {
-                    angular[i] = req.body;
+            for (var i = 0; i < angularlocal.length; i++) {
+                if (angularlocal[i].Id == angular.Id) {
+                    angularlocal[i] = req.body;
                 }
             }
-            var newList = JSON.stringify(angular);
+            var newList = JSON.stringify(angularlocal);
             fs.writeFile('./angular.json', newList, err => {
                 if (err) {
                     console.log("Error writing file in PUT /angular/" + req.params.Id+": "+ err);
